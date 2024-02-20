@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:backgroundTint="#218CBB"
-        android:text="Modifica"
+        android:text="Modificar"
         android:textSize="20dp"
         android:onClick="windowUpdate"/>
 
