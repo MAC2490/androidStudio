@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
-            android:text="mauricio@gmail.com"
+            android:text="andres@gmail.com"
             android:layout_marginLeft="10dp"/>
 
     </LinearLayout>

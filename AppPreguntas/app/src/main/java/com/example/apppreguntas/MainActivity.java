@@ -3,7 +3,7 @@ package com.example.apppreguntas;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -15,7 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import  com.example.apppreguntas.utils.config;
+import com.example.apppreguntas.utils.Config;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText correo, password;
     TextView etq_error;
-    config config;
+    Config config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         this.password = findViewById(R.id.password);
         this.etq_error = findViewById(R.id.etq_error);
 
-        config = new  config(getApplicationContext());
+        this.config = new Config(getApplicationContext());
+
+        this.validarSesion();
     }
 
     public void validarIngreso(View vista){
@@ -85,9 +87,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cambiarActivity(String id_usuario, String nombres){
+        // Abrir archivos de persistencia y almacenar datos de usuario.
+        SharedPreferences archivo = getSharedPreferences("app-preguntas", MODE_PRIVATE);
+        SharedPreferences.Editor editor = archivo.edit();
+        editor.putString("id_usuario", id_usuario);
+        editor.putString("nombres", nombres);
+        editor.commit();
+
         Intent intencion= new Intent(getApplicationContext(), Resumen.class);
-        intencion.putExtra("nombres", nombres);
-        intencion.putExtra("id_usuario", id_usuario);
         startActivity(intencion);
+        finish();
+    }
+
+    public void validarSesion(){
+        SharedPreferences archivo = getSharedPreferences("app-preguntas", MODE_PRIVATE);
+        String id_usuario = archivo.getString("id_usuario", null);
+        String nombres = archivo.getString("nombres", null);
+
+        if (id_usuario != null && nombres!= null){
+            Intent intencion= new Intent(getApplicationContext(), Resumen.class);
+            startActivity(intencion);
+            finish();
+        }
     }
 }

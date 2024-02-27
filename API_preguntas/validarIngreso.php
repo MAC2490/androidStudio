@@ -6,7 +6,7 @@
         $correo = (!empty($_POST['correo']))? $_POST['correo'] : $_GET['correo'];
         $password= (!empty($_POST['password']))? MD5($_POST['password']) : MD5($_GET['password']);
 
-        $consulta = $base_de_datos->prepare("SELECT id_usuario, nombres FROM usuarios WHERE correo = :cor AND password = :pas");
+        $consulta = $base_de_datos->prepare("SELECT id_usuario, nombres, id_usuario FROM usuarios WHERE correo = :cor AND password = :pas");
         $consulta->bindParam(":cor", $correo);
         $consulta->bindParam(":pas", $password);
         $consulta->execute();

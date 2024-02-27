@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class config {
+public class Config {
 
     String apiHost;
 
-    public config(Context contexto){
+    public Config(Context contexto){
         // Carga el archivo properties
         Resources res = contexto.getResources();
         InputStream inputStream = res.openRawResource(R.raw.config);
