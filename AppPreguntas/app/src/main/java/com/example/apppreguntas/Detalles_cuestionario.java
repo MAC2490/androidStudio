@@ -6,7 +6,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,7 +48,6 @@ public class Detalles_cuestionario extends AppCompatActivity {
         this.correctas = findViewById(R.id.correctas);
         this.errores = findViewById(R.id.errores);
         this.lis_respuestas = findViewById(R.id.list_preguntas);
-
         this.config = new Config(getApplicationContext());
 
         Bundle datos = getIntent().getExtras();
@@ -52,15 +55,22 @@ public class Detalles_cuestionario extends AppCompatActivity {
         this.nombre.setText(datos.getString("nombre"));
         this.fecha_inicio.setText("Fecha inicio: "+datos.getString("fecha_inicio"));
         this.preguntas.setText("Preguntas: "+datos.getString("n_preguntas"));
-        this.correctas.setText("Correctas: "+datos.getString("correctas"));
-        this.errores.setText("Incorrectas: "+datos.getString("errores"));
+
+        String correctasValue = datos.getString("correctas");
+        String erroresValue = datos.getString("errores");
+        SpannableString correctasSpannable = new SpannableString("Correctas: " + correctasValue);
+        SpannableString erroresSpannable = new SpannableString("Incorrectas: " + erroresValue);
+        correctasSpannable.setSpan(new ForegroundColorSpan(Color.parseColor("#27AE60")), 10, correctasSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        erroresSpannable.setSpan(new ForegroundColorSpan(Color.RED), 12, erroresSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        this.correctas.setText(correctasSpannable);
+        this.errores.setText(erroresSpannable);
 
         this.cargarPreguntas();
     }
 
     public void cargarPreguntas(){
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = this.config.getEndpoint("API_preguntas/GetPreguntas.php?id_cuestionario="+this.id);
+        String url = this.config.getEndpoint("API_preguntas/getInfoPregunta.php?id_cuestionario="+this.id);
 
         StringRequest solicitud =  new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -117,15 +127,12 @@ public class Detalles_cuestionario extends AppCompatActivity {
                     texto_opcion.setText("   * "+opcion.getString("descripcion"));
                     texto_opcion.setTextColor(Color.BLACK);
 
-                    if (respuesta_p.equalsIgnoreCase(descripcion)){
-                        if (estado_p.equals("OK")){
-                            texto_opcion.setTextColor(Color.parseColor("#27AE60"));
-                            texto_opcion.setTypeface(n_pregunta.getTypeface(), Typeface.BOLD);
-                        }else if (estado_p.equals("ERROR")){
-                            texto_opcion.setTextColor(Color.RED);
-                            texto_opcion.setTypeface(n_pregunta.getTypeface(), Typeface.BOLD);
-                        }
+                    if (estado_p.equals("OK") && respuesta_p.equalsIgnoreCase(descripcion)){
+                        texto_opcion.setTextColor(Color.parseColor("#27AE60"));
+                    }else if (estado_p.equals("ERROR") && respuesta_p.equalsIgnoreCase(descripcion)){
+                        texto_opcion.setTextColor(Color.RED);
                     }
+                    texto_opcion.setTypeface(n_pregunta.getTypeface(), Typeface.BOLD);
                     this.lis_respuestas.addView(texto_opcion);
                 }
             }

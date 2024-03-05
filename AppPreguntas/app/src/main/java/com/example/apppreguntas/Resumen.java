@@ -38,6 +38,7 @@ public class Resumen extends AppCompatActivity {
 
     Config config;
 
+    String id_usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,8 @@ public class Resumen extends AppCompatActivity {
 
         this.etq_nombre = findViewById(R.id.etq_nombre);
         this.etq_contenedor = findViewById(R.id.contenedor);
-        this.cargarCuestionario(archivo.getString("id_usuario", ""));
+        this.id_usuario = archivo.getString("id_usuario", "");
+        this.cargarCuestionario(this.id_usuario);
 
         this.etq_nombre.setText(archivo.getString("nombres", ""));
     }
@@ -63,9 +65,16 @@ public class Resumen extends AppCompatActivity {
         finish();
     }
 
+    public void createCuestionario(View vista){
+        Intent intencion= new Intent(getApplicationContext(), IniciarCuestionario.class);
+        intencion.putExtra("nombre",etq_nombre.getText());
+        intencion.putExtra("id_usuario",id_usuario);
+        startActivity(intencion);
+    }
+
     public void cargarCuestionario(String id_usuario){
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = config.getEndpoint("API_preguntas/GetCuestionario.php");
+        String url = config.getEndpoint("API_preguntas/getCuestionario.php");
 
         StringRequest solicitud =  new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

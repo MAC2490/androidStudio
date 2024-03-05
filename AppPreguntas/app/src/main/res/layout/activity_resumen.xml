@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"
             android:textSize="30dp"/>
 
         <TextView
@@ -42,8 +43,30 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_margin="10dp">
-
             </LinearLayout>
         </ScrollView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|right">
+
+        <Button
+            android:layout_width="78dp"
+            android:layout_height="57dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="#27AE60"
+            android:drawableLeft="@drawable/icono_cuestionario_foreground"
+            android:onClick="createCuestionario"/>
+
+        <Button
+            android:layout_width="78dp"
+            android:layout_height="57dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="#AC1B0B"
+            android:drawableLeft="@drawable/icono_salir_foreground"
+            android:onClick="cerrar"/>
+
     </LinearLayout>
 </FrameLayout>

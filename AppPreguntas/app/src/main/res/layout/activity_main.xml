@@ -19,7 +19,7 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@mipmap/icono_pregunta_round"
+        android:src="@mipmap/icono_pregunta_foreground"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"/>
 
