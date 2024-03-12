@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -48,6 +49,11 @@ public class AdapterFotoPokemon extends RecyclerView.Adapter< AdapterFotoPokemon
 
             this.contexto = itemView.getContext();
             this.imgPokemon = itemView.findViewById(R.id.imgPokemon);
+            Glide.with(contexto)
+                    .asGif()
+                    .load(R.drawable.loading_pokeball)
+                    .into(imgPokemon);
+            this.imgPokemon.setVisibility(View.VISIBLE);
         }
 
         public void cargarDatos(FotoPokemon datos){

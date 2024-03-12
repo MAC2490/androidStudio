@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/img_gift"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:visibility="gone"/>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -14,30 +23,33 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_pokemones"
         android:layout_width="match_parent"
-        android:layout_height="594dp">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="0dp"
+        android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="bottom">
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/anterior"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginHorizontal="10dp"
-            android:backgroundTint="#C6C2C2"
+            android:layout_weight="1"
+            android:backgroundTint="#2254D1"
             android:text="Anterior"
-            android:onClick="anterior"/>
+            android:onClick="anterior"
+            android:background="@drawable/btn_cuadrado"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/siguiente"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:backgroundTint="#FF3333"
+            android:backgroundTint="#2254D1"
             android:text="Siguiente"
-            android:onClick="siguiente"/>
+            android:onClick="siguiente"
+            android:layout_weight="1"
+            android:background="@drawable/btn_cuadrado"/>
     </LinearLayout>
-
 </LinearLayout>
