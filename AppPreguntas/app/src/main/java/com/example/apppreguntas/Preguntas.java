@@ -182,7 +182,6 @@ public class Preguntas extends AppCompatActivity {
                             }else{
                                 estado = "ERROR";
                             }
-
                             datosMap.put("id_cuestionario", id_cuestionario);
                             datosMap.put("id_pregunta", n_pregunta_text);
                             datosMap.put("descripcion", radioButton.getText().toString());
